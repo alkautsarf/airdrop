@@ -9,10 +9,20 @@ contract GoodAirdrop {
     address public immutable i_token;
     uint256 public transfers;
 
+    /**
+     * @dev Initializes the GoodAirdrop contract.
+     * @param _token The address of the ERC20 token to be used for airdrop.
+     */
     constructor(address _token) {
         i_token = _token;
     }
 
+    /**
+     * @dev Performs airdrop of tokens to multiple recipients.
+     * @param recipients The array of recipient addresses.
+     * @param amounts The array of token amounts to be transferred to each recipient.
+     * @param totalAmount The total amount of tokens to be transferred from the sender's address.
+     */
     function airdropGood(address[] calldata recipients, uint256[] calldata amounts, uint256 totalAmount) public {
         if (recipients.length != amounts.length) revert InvalidLengths();
         IERC20(i_token).transferFrom(msg.sender, address(this), totalAmount);
